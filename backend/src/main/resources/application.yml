@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/toDoTask
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  application:
+    name: ToDoTask
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
