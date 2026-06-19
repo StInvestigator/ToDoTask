@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
-    // Простой маппер (можно заменить на MapStruct по ТЗ [cite: 88])
     private UserResponse mapToResponse(User user) {
         return new UserResponse(
                 user.getId(), user.getFirstName(), user.getLastName(),
