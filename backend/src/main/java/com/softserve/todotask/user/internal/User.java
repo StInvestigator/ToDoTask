@@ -32,8 +32,9 @@ public class User {
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String role; // 'USER' or 'ADMIN'
+    private UserRole role;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

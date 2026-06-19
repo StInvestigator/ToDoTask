@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
                 .lastName(request.lastName())
                 .email(request.email())
                 .passwordHash(passwordEncoder.encode(request.password()))
-                .role("USER")
+                .role(UserRole.USER)
                 .build();
 
         User savedUser = userRepository.save(user);
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     private UserResponse mapToResponse(User user) {
         return new UserResponse(
                 user.getId(), user.getFirstName(), user.getLastName(),
-                user.getEmail(), user.getRole()
+                user.getEmail(), user.getRole().name()
         );
     }
 }
