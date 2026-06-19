@@ -1,6 +1,7 @@
 package com.softserve.todotask.user.internal;
 
 import com.softserve.todotask.user.UserService;
+import com.softserve.todotask.user.internal.enums.UserRole;
 import com.softserve.todotask.user.web.dto.UserCreateRequest;
 import com.softserve.todotask.user.web.dto.UserResponse;
 import lombok.RequiredArgsConstructor;

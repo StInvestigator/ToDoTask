@@ -1,5 +1,6 @@
 package com.softserve.todotask.user.internal;
 
+import com.softserve.todotask.user.internal.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
