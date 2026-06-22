@@ -60,4 +60,17 @@ public class UserServiceImpl implements UserService {
                 user.getEmail(), user.getRole().name()
         );
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserResponse getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return mapToResponse(user);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
 }
