@@ -17,6 +17,13 @@
   }
 }
 
+.link-disabled {
+  pointer-events: none;
+  color: #6598ff;
+  cursor: not-allowed;
+  user-select: none;
+}
+
 .hero {
   position: relative;
 
