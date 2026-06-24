@@ -20,7 +20,7 @@ const CreateTask = () => {
                 const response = await api.get('/users?page=0&size=100');
                 setUsers(response.data.content.filter(u => u.id !== parseInt(ownerId)));
             } catch (error) {
-                console.error('Failed to fetch users for collaborators', error);
+                console.error('Failed to fetch users for collaborators', error.response?.data?.message);
             }
         };
         fetchUsers();
@@ -54,7 +54,7 @@ const CreateTask = () => {
             await api.post('/tasks', formData);
             navigate('/tasks');
         } catch (error) {
-            console.error('Error creating task', error);
+            console.error('Error creating task', error.response?.data?.message);
         }
     };
 

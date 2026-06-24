@@ -15,7 +15,7 @@ const TaskList = () => {
             setTasks(response.data.content);
             setTotalPages(response.data.totalPages);
         } catch (error) {
-            console.error('Failed to fetch tasks', error);
+            console.error('Failed to fetch tasks', error.response?.data?.message);
         }
     };
 
@@ -31,7 +31,7 @@ const TaskList = () => {
                 await api.delete(`/tasks/${taskId}`);
                 fetchTasks(currentPage);
             } catch (error) {
-                console.error('Failed to delete task', error);
+                console.error('Failed to delete task', error.response?.data?.message);
             }
         }
     };

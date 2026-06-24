@@ -30,7 +30,7 @@ const EditTask = () => {
                     collaboratorIds: task.collaborators.map(c => c.id)
                 });
             } catch (error) {
-                console.error('Failed to load data', error);
+                console.error('Failed to load data', error.response?.data?.message);
             }
         };
         fetchData();

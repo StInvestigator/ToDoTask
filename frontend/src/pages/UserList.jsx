@@ -19,7 +19,7 @@ const UserList = () => {
             setUsers(response.data.content);
             setTotalPages(response.data.totalPages);
         } catch (error) {
-            console.error('Failed to fetch users', error);
+            console.error('Failed to fetch users', error.response?.data?.message);
         }
     };
 
@@ -29,7 +29,7 @@ const UserList = () => {
                 await api.delete(`/users/${id}`);
                 fetchUsers(currentPage);
             } catch (error) {
-                console.error('Failed to delete', error);
+                console.error('Failed to delete', error.response?.data?.message);
             }
         }
     };
@@ -55,7 +55,10 @@ const UserList = () => {
                 {users.map(user => (
                     <tr key={user.id}>
                         <td>{user.id}</td>
-                        <td className="fw-bold">{user.firstName} {user.lastName} {user.id == userId ? "(Its me)" : ""}</td>
+                        {user.id == userId ?
+                            <td className="fw-bold">{user.firstName} {user.lastName} <span className="badge text-black bg-warning p-1">(It`s you)</span> </td>
+                            :
+                            <td className="fw-bold">{user.firstName} {user.lastName} </td>}
                         <td>{user.email}</td>
                         <td>{user.role}</td>
                         <td className="d-flex align-items-center">
