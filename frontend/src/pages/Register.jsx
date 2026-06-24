@@ -37,8 +37,8 @@ const Register = () => {
                 }
             });
         } catch (error) {
-            console.error('Registration failed', error);
-            alert('Error creating user');
+            console.error('Registration failed', error.response?.data?.message || "network error");
+            alert(error.response?.data?.message || "network error");
         }
     };
 

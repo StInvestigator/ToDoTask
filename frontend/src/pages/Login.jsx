@@ -27,7 +27,7 @@ const Login = () => {
             window.location.reload();
         } catch (error) {
             console.error('Login failed', error);
-            alert('Invalid email or password');
+            alert(error.response?.data?.message || "network error");
         }
     };
 

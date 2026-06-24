@@ -22,7 +22,7 @@ const Profile = () => {
                     email: response.data.email
                 });
             } catch (error) {
-                console.error('Failed to fetch profile', error);
+                console.error('Login failed', error.response?.data?.message || "network error");
             }
         };
         fetchProfile();
@@ -45,7 +45,7 @@ const Profile = () => {
                     window.location.reload();
                 }
             } catch (error) {
-                setProfileMessage({type: 'danger', text: 'Failed to update profile. Email might be taken.'});
+                setProfileMessage({type: 'danger', text: 'Failed to update profile. ' + error.response?.data?.message || "network error"});
             }
         }
     };
