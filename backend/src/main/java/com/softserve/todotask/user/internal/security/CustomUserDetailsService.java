@@ -1,5 +1,7 @@
-package com.softserve.todotask.user.internal;
+package com.softserve.todotask.user.internal.security;
 
+import com.softserve.todotask.user.internal.User;
+import com.softserve.todotask.user.internal.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
