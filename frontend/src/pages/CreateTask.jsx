@@ -17,8 +17,8 @@ const CreateTask = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await api.get('/users');
-                setUsers(response.data.filter(u => u.id !== parseInt(ownerId)));
+                const response = await api.get('/users?page=0&size=100');
+                setUsers(response.data.content.filter(u => u.id !== parseInt(ownerId)));
             } catch (error) {
                 console.error('Failed to fetch users for collaborators', error);
             }
@@ -31,6 +31,7 @@ const CreateTask = () => {
     };
 
     const handleCollaboratorSelect = (e) => {
+        if(e.target.value === " ") return
         const selectedId = parseInt(e.target.value);
         if (selectedId && !formData.collaboratorIds.includes(selectedId)) {
             setFormData({
@@ -103,7 +104,7 @@ const CreateTask = () => {
 
                         <label className="form-label">Add new collaborator</label>
                         <select className="form-select" onChange={handleCollaboratorSelect} defaultValue="">
-                            <option value="" disabled>Select collaborator...</option>
+                            <option value="">Select collaborator...</option>
                             {users.map(user => (
                                 <option key={user.id} value={user.id}>{user.firstName} {user.lastName}</option>
                             ))}

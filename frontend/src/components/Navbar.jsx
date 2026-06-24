@@ -4,7 +4,6 @@ const Navbar = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem('jwt_token');
     const role = localStorage.getItem('user_role');
-    const name = localStorage.getItem('user_first_name') + ' ' + localStorage.getItem('user_last_name')
     const isAuthenticated = !!token;
 
     const handleLogout = () => {
@@ -21,8 +20,14 @@ const Navbar = () => {
                     <ul className="navbar-nav me-auto my-auto">
                         <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
 
-                        {isAuthenticated && (
-                            <li className="nav-item"><Link className="nav-link" to="/tasks">My Tasks</Link></li>
+                        {isAuthenticated && (<>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/tasks">My Tasks</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/tasks/shared">Collaborations</Link>
+                                </li>
+                            </>
                         )}
 
                         {isAuthenticated && role === 'ADMIN' && (
@@ -31,7 +36,9 @@ const Navbar = () => {
                     </ul>
                     <ul className="navbar-nav">
                         {isAuthenticated ? (<>
-                                <h5 className="me-2 my-auto text-white">{name}</h5>
+                                <li className="nav-item me-3">
+                                    <Link className="nav-link" to="/profile">My Profile</Link>
+                                </li>
                                 <li className="nav-item">
                                     <button className="btn btn-outline-light" onClick={handleLogout}>Logout</button>
                                 </li>

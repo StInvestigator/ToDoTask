@@ -18,6 +18,7 @@ const Login = () => {
 
             localStorage.setItem('jwt_token', token);
             localStorage.setItem('user_id', userId);
+            localStorage.setItem('user_email', credentials.email);
             localStorage.setItem('user_role', role);
             localStorage.setItem('user_first_name', firstName);
             localStorage.setItem('user_last_name', lastName);
@@ -47,7 +48,7 @@ const Login = () => {
                             </div>
                             <button type="submit" className="btn btn-primary w-100 mb-3">Login</button>
                             <div className="text-center">
-                                <Link to="/users/new">Don't have an account? Register</Link>
+                                <Link to="/register">Don't have an account? Register</Link>
                             </div>
                         </form>
                     </div>

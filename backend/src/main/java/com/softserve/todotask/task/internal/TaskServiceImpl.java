@@ -4,6 +4,7 @@ import com.softserve.todotask.task.TaskService;
 import com.softserve.todotask.task.internal.enums.TaskStatus;
 import com.softserve.todotask.task.web.dto.TaskCreateRequest;
 import com.softserve.todotask.task.web.dto.TaskResponse;
+import com.softserve.todotask.task.web.dto.TaskUpdateRequest;
 import com.softserve.todotask.user.UserService;
 import com.softserve.todotask.user.web.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
@@ -62,5 +63,38 @@ public class TaskServiceImpl implements TaskService {
                 owner,
                 collaborators
         );
+    }
+
+    @Transactional(readOnly = true)
+    public TaskResponse getTaskById(Long id) {
+        return taskRepository.findById(id)
+                .map(this::mapToResponse)
+                .orElseThrow(() -> new IllegalArgumentException("Task not found"));
+    }
+
+    @Transactional
+    public TaskResponse updateTask(Long id, TaskUpdateRequest request) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Task not found"));
+
+        task.setName(request.name());
+        task.setPriority(request.priority());
+        task.setStatus(request.status());
+        task.setCollaboratorIds(request.collaboratorIds() != null ? request.collaboratorIds() : Set.of());
+
+        return mapToResponse(taskRepository.save(task));
+    }
+
+    @Transactional
+    public void deleteTask(Long id) {
+        taskRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<TaskResponse> getTasksByCollaborator(Long collaboratorId, Pageable pageable) {
+        userService.getUserById(collaboratorId);
+
+        return taskRepository.findTasksByCollaborator(collaboratorId, pageable)
+                .map(this::mapToResponse);
     }
 }

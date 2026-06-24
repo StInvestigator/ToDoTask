@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import api from '../api/axiosConfig';
 import Pagination from '../components/Pagination';
 
-const TaskList = () => {
+const CollaborativeTasks = () => {
     const [tasks, setTasks] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
@@ -11,30 +10,18 @@ const TaskList = () => {
 
     const fetchTasks = async (page) => {
         try {
-            const response = await api.get(`/tasks/user?page=${page}&size=10`);
+            const response = await api.get(`/tasks/collaborator?page=${page}&size=10`);
             setTasks(response.data.content);
             setTotalPages(response.data.totalPages);
         } catch (error) {
-            console.error('Failed to fetch tasks', error);
+            console.error('Failed to fetch collaborative tasks', error);
         }
     };
-
 
     useEffect(() => {
         if (userId) fetchTasks(currentPage);
     }, [userId, currentPage]);
 
-
-    const handleDelete = async (taskId) => {
-        if (window.confirm('Are you sure you want to delete this task?')) {
-            try {
-                await api.delete(`/tasks/${taskId}`);
-                fetchTasks(currentPage);
-            } catch (error) {
-                console.error('Failed to delete task', error);
-            }
-        }
-    };
 
     const getBadgeClass = (status) => {
         switch(status) {
@@ -46,9 +33,9 @@ const TaskList = () => {
 
     return (
         <div>
-            <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2>All Tasks from My To-Do</h2>
-                <Link to="/tasks/new" className="btn btn-primary">Create New Task</Link>
+            <div className="mb-4">
+                <h2>Shared with Me</h2>
+                <p className="text-muted">Tasks where you are listed as a collaborator (Read-Only).</p>
             </div>
 
             <div className="table-responsive">
@@ -57,25 +44,22 @@ const TaskList = () => {
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
+                        <th>Owner</th>
                         <th>Priority</th>
                         <th>State</th>
-                        <th>Operations</th>
                     </tr>
                     </thead>
                     <tbody>
                     {tasks.length === 0 ? (
-                        <tr><td colSpan="5" className="text-center">No tasks found. Create one!</td></tr>
+                        <tr><td colSpan="5" className="text-center">No collaborative tasks found.</td></tr>
                     ) : (
                         tasks.map(task => (
                             <tr key={task.id}>
                                 <td>{task.id}</td>
-                                <td>{task.name}</td>
+                                <td className="fw-bold">{task.name}</td>
+                                <td>{task.owner.firstName} {task.owner.lastName}</td>
                                 <td>{task.priority}</td>
                                 <td><span className={`badge ${getBadgeClass(task.status)}`}>{task.status}</span></td>
-                                <td>
-                                    <Link to={`/tasks/edit/${task.id}`} className="text-primary me-3 text-decoration-none">Edit</Link>
-                                    <button onClick={() => handleDelete(task.id)} className="btn btn-link text-danger p-0 text-decoration-none">Remove</button>
-                                </td>
                             </tr>
                         ))
                     )}
@@ -92,4 +76,4 @@ const TaskList = () => {
     );
 };
 
-export default TaskList;
+export default CollaborativeTasks;
