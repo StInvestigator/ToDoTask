@@ -21,8 +21,8 @@ const CreateUser = () => {
             await api.post('/users', formData);
             navigate('/users');
         } catch (error) {
-            console.error('Creating user failed', error.response?.data?.message);
-            alert('User creation failed: ' + error.response?.data?.message);
+            console.error('Creating user failed', error.response?.data?.message || "network error");
+            alert('User creation failed: ' + error.response?.data?.message || "network error");
         }
     };
 

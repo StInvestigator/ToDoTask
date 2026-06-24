@@ -27,7 +27,7 @@ const Login = () => {
             window.location.reload();
         } catch (error) {
             console.error('Login failed', error);
-            alert(error.response?.data?.message);
+            alert(error.response?.data?.message || "network error");
         }
     };
 

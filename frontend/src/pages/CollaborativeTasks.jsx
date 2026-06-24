@@ -14,7 +14,7 @@ const CollaborativeTasks = () => {
             setTasks(response.data.content);
             setTotalPages(response.data.totalPages);
         } catch (error) {
-            console.error('Failed to fetch collaborative tasks', error.response?.data?.message);
+            console.error('Failed to fetch collaborative tasks', error.response?.data?.message || "network error");
         }
     };
 

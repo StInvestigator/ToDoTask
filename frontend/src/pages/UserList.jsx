@@ -19,7 +19,7 @@ const UserList = () => {
             setUsers(response.data.content);
             setTotalPages(response.data.totalPages);
         } catch (error) {
-            console.error('Failed to fetch users', error.response?.data?.message);
+            console.error('Failed to fetch users', error.response?.data?.message || "network error");
         }
     };
 
@@ -29,7 +29,7 @@ const UserList = () => {
                 await api.delete(`/users/${id}`);
                 fetchUsers(currentPage);
             } catch (error) {
-                console.error('Failed to delete', error.response?.data?.message);
+                console.error('Failed to delete', error.response?.data?.message || "network error");
             }
         }
     };

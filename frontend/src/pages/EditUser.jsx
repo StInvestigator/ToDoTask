@@ -13,7 +13,7 @@ const EditUser = () => {
                 const response = await api.get(`/users/${id}`);
                 setUser(response.data);
             } catch (error) {
-                console.error('Failed to fetch user', error.response?.data?.message);
+                console.error('Failed to fetch user', error.response?.data?.message || "network error");
             }
         };
         fetchUser();
@@ -25,8 +25,8 @@ const EditUser = () => {
             await api.put(`/users/${id}/role`, { role: user.role });
             navigate('/users');
         } catch (error) {
-            console.error('Failed to update user role', error.response?.data?.message);
-            alert(error.response?.data?.message);
+            console.error('Failed to update user role', error.response?.data?.message || "network error");
+            alert(error.response?.data?.message || "network error");
         }
     };
 
