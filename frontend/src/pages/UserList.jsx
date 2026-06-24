@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 import api from '../api/axiosConfig';
 import Pagination from '../components/Pagination';
 
@@ -7,6 +7,7 @@ const UserList = () => {
     const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
+    const userId = localStorage.getItem('user_id')
 
     useEffect(() => {
         fetchUsers(currentPage);
@@ -54,12 +55,27 @@ const UserList = () => {
                 {users.map(user => (
                     <tr key={user.id}>
                         <td>{user.id}</td>
-                        <td>{user.firstName} {user.lastName}</td>
+                        <td className="fw-bold">{user.firstName} {user.lastName} {user.id == userId ? "(Its me)" : ""}</td>
                         <td>{user.email}</td>
                         <td>{user.role}</td>
-                        <td>
-                            <Link to={`/users/edit/${user.id}`} className="text-primary me-3 text-decoration-none">Edit</Link>
-                            <button onClick={() => handleDelete(user.id)} className="btn btn-link text-danger p-0 text-decoration-none">Remove</button>
+                        <td className="d-flex align-items-center">
+                            {user.id != userId ? <>
+                                    <Link to={`/users/edit/${user.id}`}
+                                          className="text-primary me-3 text-decoration-none">Edit</Link>
+                                    <button onClick={() => handleDelete(user.id)}
+                                            className="btn btn-link text-danger p-0 text-decoration-none">Remove
+                                    </button>
+                                </>
+                                :
+                                <>
+                                    <span
+                                          className="me-3 text-decoration-none link-disabled">Edit</span>
+                                    <button onClick={() => handleDelete(user.id)}
+                                            className="btn btn-link text-danger p-0 text-decoration-none"
+                                            disabled>Remove
+                                    </button>
+                                </>
+                            }
                         </td>
                     </tr>
                 ))}

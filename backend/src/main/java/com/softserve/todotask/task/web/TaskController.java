@@ -4,7 +4,7 @@ import com.softserve.todotask.task.internal.TaskServiceImpl;
 import com.softserve.todotask.task.web.dto.TaskCreateRequest;
 import com.softserve.todotask.task.web.dto.TaskResponse;
 import com.softserve.todotask.task.web.dto.TaskUpdateRequest;
-import com.softserve.todotask.user.internal.CustomUserDetails;
+import com.softserve.todotask.user.internal.security.CustomUserDetails;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

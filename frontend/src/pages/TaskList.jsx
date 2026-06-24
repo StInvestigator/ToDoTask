@@ -69,13 +69,13 @@ const TaskList = () => {
                         tasks.map(task => (
                             <tr key={task.id}>
                                 <td>{task.id}</td>
-                                <td>{task.name}</td>
+                                <td className="fw-bold">{task.name}</td>
                                 <td>{task.priority}</td>
-                                <td><span className={`badge ${getBadgeClass(task.status)}`}>{task.status}</span></td>
-                                <td>
+                                <td><span className={`badge ${getBadgeClass(task.status)}`}>{task.status === "IN_PROGRESS" ? "IN PROGRESS" : task.status}</span></td>
+                                <td className="d-flex align-items-center">
                                     <Link to={`/tasks/edit/${task.id}`} className="text-primary me-3 text-decoration-none">Edit</Link>
                                     <button onClick={() => handleDelete(task.id)} className="btn btn-link text-danger p-0 text-decoration-none">Remove</button>
-                                </td>
+                                </td >
                             </tr>
                         ))
                     )}

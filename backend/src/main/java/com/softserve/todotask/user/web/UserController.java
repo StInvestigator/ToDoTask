@@ -1,7 +1,7 @@
 package com.softserve.todotask.user.web;
 
 import com.softserve.todotask.user.UserService;
-import com.softserve.todotask.user.internal.CustomUserDetails;
+import com.softserve.todotask.user.internal.security.CustomUserDetails;
 import com.softserve.todotask.user.web.dto.ChangePasswordRequest;
 import com.softserve.todotask.user.web.dto.UserCreateRequest;
 import com.softserve.todotask.user.web.dto.UserResponse;

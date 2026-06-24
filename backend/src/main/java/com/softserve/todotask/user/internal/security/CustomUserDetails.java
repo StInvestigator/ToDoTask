@@ -1,4 +1,4 @@
-package com.softserve.todotask.user.internal;
+package com.softserve.todotask.user.internal.security;
 
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
